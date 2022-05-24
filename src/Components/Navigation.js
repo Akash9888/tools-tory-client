@@ -45,7 +45,15 @@ const Navigation = () => {
                             <Link to="/">Home</Link>
                         </li>
                         <li>
-                            <Link to="/">Home</Link>
+                            <Link to="/my-portfolio">My Portfolio</Link>
+                        </li>
+                        {user && (
+                            <li>
+                                <Link to="/dashboard">Dashboard</Link>
+                            </li>
+                        )}
+                        <li>
+                            <Link to="/my-portfolio">My Portfolio</Link>
                         </li>
                     </ul>
                 </div>
@@ -62,16 +70,24 @@ const Navigation = () => {
                     <li>
                         <Link to="/">Home</Link>
                     </li>
+                    {user && (
+                        <li>
+                            <Link to="/dashboard">Dashboard</Link>
+                        </li>
+                    )}
                     <li>
-                        <Link to="/dashboard">Dashboard</Link>
+                        <Link to="/my-portfolio">My Portfolio</Link>
                     </li>
                 </ul>
             </div>
             <div class="navbar-end">
                 {user ? (
-                    <button class="btn btn-link" onClick={logout}>
-                        Sign Out
-                    </button>
+                    <>
+                        <p>{user.displayName}</p>
+                        <button class="btn btn-link" onClick={logout}>
+                            Sign Out
+                        </button>
+                    </>
                 ) : (
                     <>
                         <button class="btn btn-link">

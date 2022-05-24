@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import auth from "../../firebaseConfig";
@@ -25,8 +25,10 @@ const SignIn = () => {
     } = useForm({
         resolver: yupResolver(schema),
     });
-    const navigate = useNavigate();
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    let from = location.state?.from?.pathname || "/";
     const onSubmit = (data) => {
         console.log(data);
         signInWithEmailAndPassword(data.email, data.password);
@@ -36,7 +38,7 @@ const SignIn = () => {
         return <p>Loading...</p>;
     }
     if (user) {
-        navigate("/");
+        navigate(from, { replace: true });
     }
     return (
         <div className="container w-full md:w-[30%] mx-auto my-5 p-2">
