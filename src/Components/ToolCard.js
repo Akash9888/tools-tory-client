@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const ToolCard = ({ data }) => {
-    console.log(data);
     const { name, description, min, quantity, price, photo, _id } = data;
     const navigate = useNavigate();
     return (

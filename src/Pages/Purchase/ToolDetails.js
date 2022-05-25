@@ -49,6 +49,7 @@ const ToolDetails = ({ data }) => {
         purchaseData.phone = data.phone;
         purchaseData.name = data.name;
         purchaseData.email = data.email;
+        purchaseData.status = "unpaid";
 
         savePurchaseData(purchaseData);
     };
@@ -62,7 +63,6 @@ const ToolDetails = ({ data }) => {
         console.log(postError.message);
     }
     if (postData) {
-        console.log(postData);
         Swal.fire("Purchase data store successful");
         navigate("/dashboard/my-orders");
     }
