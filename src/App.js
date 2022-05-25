@@ -17,45 +17,63 @@ import ManageProducts from "./Pages/DashBoard/Admin/ManageProducts";
 import AddReview from "./Pages/DashBoard/User/AddReview";
 import MyOrders from "./Pages/DashBoard/User/MyOrders";
 import MyPortfolio from "./Pages/DashBoard/Portfolio/MyPortfolio";
+import Purchase from "./Pages/Purchase/Purchase";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
+
 function App() {
     return (
         <div className="App">
-            <Navigation />
-            <Routes>
-                <Route path="/">
-                    <Route index element={<Home />} />
-                    <Route path="sign-in" element={<SignIn />} />
-                    <Route path="sign-up" element={<SignUp />} />
-                    <Route path="reset-pass" element={<ResetPass />} />
-                    <Route path="my-portfolio" element={<MyPortfolio />} />
+            <QueryClientProvider client={queryClient}>
+                <Navigation />
+                <Routes>
+                    <Route path="/">
+                        <Route index element={<Home />} />
+                        <Route path="sign-in" element={<SignIn />} />
+                        <Route path="sign-up" element={<SignUp />} />
+                        <Route path="reset-pass" element={<ResetPass />} />
+                        <Route path="my-portfolio" element={<MyPortfolio />} />
+                        <Route
+                            path="purchase/:_id"
+                            element={
+                                <RequiredAuth>
+                                    <Purchase />
+                                </RequiredAuth>
+                            }
+                        />
 
-                    <Route
-                        path="dashboard"
-                        element={
-                            <RequiredAuth>
-                                <DashBoard />
-                            </RequiredAuth>
-                        }>
-                        <Route index element={<MyProfile />} />
-                        <Route path="my-orders" element={<MyOrders />} />
-                        <Route path="add-review" element={<AddReview />} />
-                        <Route path="add-product" element={<AddProduct />} />
                         <Route
-                            path="manage-orders"
-                            element={<ManageAllOrders />}
-                        />
-                        <Route path="make-admin" element={<MakeAdmin />} />
-                        <Route
-                            path="manage-products"
-                            element={<ManageProducts />}
-                        />
-                        <Route />
+                            path="dashboard"
+                            element={
+                                <RequiredAuth>
+                                    <DashBoard />
+                                </RequiredAuth>
+                            }>
+                            <Route index element={<MyProfile />} />
+                            <Route path="my-orders" element={<MyOrders />} />
+                            <Route path="add-review" element={<AddReview />} />
+                            <Route
+                                path="add-product"
+                                element={<AddProduct />}
+                            />
+                            <Route
+                                path="manage-orders"
+                                element={<ManageAllOrders />}
+                            />
+                            <Route path="make-admin" element={<MakeAdmin />} />
+                            <Route
+                                path="manage-products"
+                                element={<ManageProducts />}
+                            />
+                            <Route />
+                        </Route>
+
+                        <Route path="*" element={<FourZeroFour />} />
                     </Route>
-
-                    <Route path="*" element={<FourZeroFour />} />
-                </Route>
-            </Routes>
-            <Footer />
+                </Routes>
+                <Footer />
+            </QueryClientProvider>
         </div>
     );
 }
