@@ -47,7 +47,7 @@ const ManageProducts = () => {
                     `http://localhost:5000/api/delete-product/${_id}`
                 );
 
-                Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                Swal.fire("Deleted!", "Product has been deleted.", "success");
             }
         });
     };
