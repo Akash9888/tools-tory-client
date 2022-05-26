@@ -1,8 +1,10 @@
 import React from "react";
 
-const UserTableBody = ({ data, index, deleteOrder }) => {
+const UserTableBody = ({ data, index, deleteOrder, makePayment }) => {
+    console.log(data);
     const fieldValues = Object.values(data);
     fieldValues.pop();
+    console.log(fieldValues);
 
     return (
         <tr>
@@ -14,7 +16,11 @@ const UserTableBody = ({ data, index, deleteOrder }) => {
 
             <td>
                 {data?.status == "unpaid" ? (
-                    <button class="btn btn-outline btn-success ">
+                    <button
+                        class="btn btn-outline btn-success "
+                        onClick={() => {
+                            makePayment(data._id);
+                        }}>
                         Pay Now
                     </button>
                 ) : (

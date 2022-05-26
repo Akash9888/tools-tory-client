@@ -1,4 +1,3 @@
-import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Navigation from "./Components/Navigation";
 import Footer from "./Components/Footer";
@@ -19,6 +18,8 @@ import MyOrders from "./Pages/DashBoard/User/MyOrders";
 import MyPortfolio from "./Pages/DashBoard/Portfolio/MyPortfolio";
 import Purchase from "./Pages/Purchase/Purchase";
 import { QueryClient, QueryClientProvider } from "react-query";
+import Payment from "../src/Pages/Payment/Payment";
+import CheckOut from "./Pages/Payment/CheckOut";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,22 @@ function App() {
                             element={
                                 <RequiredAuth>
                                     <Purchase />
+                                </RequiredAuth>
+                            }
+                        />
+                        <Route
+                            path="checkout/:_id"
+                            element={
+                                <RequiredAuth>
+                                    <CheckOut />
+                                </RequiredAuth>
+                            }
+                        />
+                        <Route
+                            path="payment/:_id"
+                            element={
+                                <RequiredAuth>
+                                    <Payment />
                                 </RequiredAuth>
                             }
                         />

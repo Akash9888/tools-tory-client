@@ -8,6 +8,7 @@ import usePost from "../../CustomHooks/usePost";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 const ToolDetails = ({ data }) => {
+    console.log(data);
     const { name, description, min, _id, quantity, photo, price } = data;
     const [user, loading, error] = useAuthState(auth);
     const {
@@ -44,12 +45,15 @@ const ToolDetails = ({ data }) => {
         purchaseData.productName = name;
         purchaseData.productId = _id;
         purchaseData.quantity = data.orderQuantity;
-        purchaseData.price = data.orderQuantity * price;
+        purchaseData.unitPrice = price;
+        purchaseData.totalPrice = data.orderQuantity * price;
         purchaseData.address = data.address;
+        purchaseData.photo = photo;
         purchaseData.phone = data.phone;
         purchaseData.name = data.name;
         purchaseData.email = data.email;
         purchaseData.status = "unpaid";
+        purchaseData.transaction = "none";
 
         savePurchaseData(purchaseData);
     };

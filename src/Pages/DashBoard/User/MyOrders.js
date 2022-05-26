@@ -6,6 +6,7 @@ import UserTableBody from "./UserTableBody";
 import useDelete from "../../../CustomHooks/useDelete";
 import Swal from "sweetalert2";
 import useFetchMyOrders from "../../../CustomHooks/useFetchMyOrders";
+import { useNavigate } from "react-router-dom";
 const MyOrders = () => {
     const [user, loading, error] = useAuthState(auth);
     const {
@@ -22,6 +23,7 @@ const MyOrders = () => {
         error: deleteError,
         data: deleteData,
     } = useDelete();
+    const navigate = useNavigate();
     if (loading || isLoading || deleteLoading) {
         return <p>Loading..</p>;
     }
@@ -34,10 +36,11 @@ const MyOrders = () => {
     if (deleteError) {
         console.log(deleteError.message);
     }
-    if (data) {
-        console.log(data.data);
-    }
 
+    const makePayment = (_id) => {
+        console.log("payment method", _id);
+        navigate(`/payment/${_id}`);
+    };
     const deleteOrder = (_id) => {
         Swal.fire({
             title: "Are you sure?",
@@ -81,6 +84,7 @@ const MyOrders = () => {
                                 index={index}
                                 data={data}
                                 deleteOrder={deleteOrder}
+                                makePayment={makePayment}
                             />
                         );
                     })}
