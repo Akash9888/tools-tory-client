@@ -1,25 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-// st useUpdate = () => {
-//     const [upStatus, setUpStatus] = useState("");
-//     const [upError, setUpError] = useState(null);
-//     const [upLoading, setUpLoading] = useState(false);
-
-//     const update = (url, modifiData) => {
-//         setUpLoading(true);
-//         console.log("2", upLoading);
-//         axios
-//             .put(url, modifiData)
-//             .then((response) => {
-//                 setUpStatus(response.data);
-//                 console.log(upStatus);
-//             })
-//             .catch((error) => setUpError(error))
-//             .finally(() => {
-//                 setUpLoading(false);
-//                 console.log("3", upLoading);
-//             });
-//     };
 
 const useUpdate = () => {
     const [data, setData] = useState("");

@@ -15,7 +15,7 @@ const ToolDetails = ({ data }) => {
         loading: postLoading,
         error: postError,
         data: postData,
-        savePurchaseData,
+        savePostData,
     } = usePost(`http://localhost:5000/api/create-order`);
     const schema = yup.object().shape({
         address: yup.string().required(),
@@ -55,7 +55,7 @@ const ToolDetails = ({ data }) => {
         purchaseData.status = "unpaid";
         purchaseData.transaction = "none";
 
-        savePurchaseData(purchaseData);
+        savePostData(purchaseData);
     };
     if (loading || postLoading) {
         return <p>Loading...</p>;

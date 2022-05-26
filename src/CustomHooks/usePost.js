@@ -6,10 +6,11 @@ const usePost = (url) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
-    const savePurchaseData = (purchaseData) => {
+    const savePostData = (postData) => {
+        console.log(postData);
         setLoading(true);
         axios
-            .post(url, purchaseData)
+            .post(url, postData)
 
             .then((response) => {
                 setData(response.data);
@@ -24,7 +25,7 @@ const usePost = (url) => {
             });
     };
 
-    return { savePurchaseData, loading, error, data };
+    return { savePostData, loading, error, data };
 };
 
 export default usePost;
