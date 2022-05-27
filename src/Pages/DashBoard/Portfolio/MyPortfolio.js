@@ -3,43 +3,84 @@ import React from "react";
 const MyPortfolio = () => {
     return (
         <div className="container w-full md:max-w-[60%] p-2 mx-auto">
-            <h1 className="text-center text-3xl">My Profile</h1>
-            {/* <div className=" p-8 sm:flex sm:space-x-6 bg-gray-50 text-gray-800">
-                <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
-                    <img
-                        src={
-                            user?.photoURL
-                                ? user.photoURL
-                                : "https://api.lorem.space/image/face?hash=33791"
-                        }
-                        alt=""
-                        className="object-cover object-center w-full h-full rounded bg-gray-500"
-                    />
+            <h1 className="text-center text-3xl my-10">My Portfolio</h1>
+            <div className="container w-full md:w-[80%] mx-auto">
+                <div className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 bg-gray-100 text-gray-800">
+                    <ul className="flex flex-col divide-y divide-gray-300">
+                        <li className="flex flex-col py-6 sm:flex-row sm:justify-between">
+                            <div className="flex w-full space-x-2 sm:space-x-4">
+                                <img
+                                    className="flex-shrink-0 object-cover w-20 h-20 border-transparent rounded outline-none sm:w-32 sm:h-32 bg-gray-500"
+                                    src="https://lh3.googleusercontent.com/a-/AOh14GhM95oUqEl8I93BxjH0JX2qekEdMad5ulpH4vK9BA=s96-c"
+                                    alt="Polaroid camera"
+                                />
+                                <div className="flex flex-col justify-between w-full pb-4">
+                                    <div className=" pb-2 ">
+                                        <div className="space-y-1">
+                                            <h3 className="text-lg font-semibold leading-snug sm:pr-8">
+                                                Name
+                                            </h3>
+                                            <p className="text-lg text-gray-600">
+                                                Akash Chanda Tushar
+                                            </p>
+                                        </div>
+                                        <div className="mt-3">
+                                            <h3 className="text-lg font-semibold leading-snug sm:pr-8">
+                                                Email
+                                            </h3>
+                                            <p className="text-lg text-gray-600">
+                                                akash.tushar98@gmail.com
+                                            </p>
+                                        </div>
+                                        <div className="mt-3">
+                                            <h3 className="text-lg font-semibold leading-snug sm:pr-8">
+                                                Education
+                                            </h3>
+                                            <p className="text-lg text-gray-600">
+                                                Bsc. in Computer Science &
+                                                Engineering Leading University,
+                                                Sylhet.
+                                            </p>
+                                        </div>
+                                        <div className="mt-3">
+                                            <h3 className="text-lg font-semibold leading-snug sm:pr-8">
+                                                Technologies
+                                            </h3>
+                                            <p className="text-lg text-gray-600">
+                                                Html, CSS, Tailwind css,
+                                                Bootstrap, MERN , Firebase etc.
+                                            </p>
+                                        </div>
+                                        <div className="mt-3">
+                                            <h3 className="text-lg font-semibold leading-snug sm:pr-8">
+                                                Recent Projects Link
+                                            </h3>
+                                            <a href="https://prc-law-firm.web.app/">
+                                                <span className="text-blue-700">
+                                                    Prc Law Firm
+                                                </span>
+                                            </a>
+                                            <br />
+                                            <a href="https://ghudamghor.firebaseapp.com/">
+                                                <span className="text-blue-700">
+                                                    Ghudam Ghor
+                                                </span>
+                                            </a>
+                                            <br />
+                                            <a href="https://akash9888.github.io/Travel-Site/">
+                                                <span className="text-blue-700">
+                                                    Jadoo
+                                                </span>
+                                            </a>
+                                            <br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div className="flex flex-col space-y-4">
-                    <div>
-                        <h2 className="text-2xl font-semibold">
-                            {data?.data[0].name}
-                        </h2>
-                    </div>
-                    <div className="space-y-1">
-                        <span className="flex items-center space-x-2">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512"
-                                aria-label="Email address"
-                                className="w-4 h-4">
-                                <path
-                                    fill="currentColor"
-                                    d="M274.6,25.623a32.006,32.006,0,0,0-37.2,0L16,183.766V496H496V183.766ZM464,402.693,339.97,322.96,464,226.492ZM256,51.662,454.429,193.4,311.434,304.615,256,268.979l-55.434,35.636L57.571,193.4ZM48,226.492,172.03,322.96,48,402.693ZM464,464H48V440.735L256,307.021,464,440.735Z"></path>
-                            </svg>
-                            <span className="text-gray-600">
-                                {data?.data[0].email}
-                            </span>
-                        </span>
-                    </div>
-                </div>
-            </div> */}
+            </div>
         </div>
     );
 };
