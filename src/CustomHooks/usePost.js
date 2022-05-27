@@ -10,7 +10,13 @@ const usePost = (url) => {
         console.log(postData);
         setLoading(true);
         axios
-            .post(url, postData)
+            .post(url, postData, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem(
+                        "accessToken"
+                    )}`,
+                },
+            })
 
             .then((response) => {
                 setData(response.data);

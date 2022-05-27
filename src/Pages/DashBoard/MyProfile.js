@@ -5,6 +5,7 @@ import Loader from "../../Components/Loader";
 import auth from "../../firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ProfileUpdateModal from "./User/ProfileUpdateModal";
+import useFetchUser from "../../CustomHooks/useFetchUser";
 const MyProfile = () => {
     const [user, loading, error] = useAuthState(auth);
     const {
@@ -12,9 +13,9 @@ const MyProfile = () => {
         error: fetchError,
         data,
         isFetching,
-    } = useQuery("fetch-product", () => {
-        return axios.get(`http://localhost:5000/api/fetch-user/${user?.email}`);
-    });
+    } = useFetchUser(
+        `https://aqueous-anchorage-06068.herokuapp.com/api/user/fetch-user/${user?.email}`
+    );
     if (isLoading || loading) {
         return <Loader />;
     }
@@ -45,9 +46,15 @@ const MyProfile = () => {
                 </div>
                 <div className="flex flex-col space-y-4">
                     <div>
-                        <h2 className="text-2xl font-semibold">
-                            {data?.data[0].name}
-                        </h2>
+                        {!user?.displayName ? (
+                            <h2 className="text-2xl font-semibold">
+                                {data?.data[0]?.name}
+                            </h2>
+                        ) : (
+                            <h2 className="text-2xl font-semibold">
+                                {user.displayName}
+                            </h2>
+                        )}
                     </div>
                     <div className="space-y-1">
                         <span className="flex items-center space-x-2">
@@ -61,7 +68,7 @@ const MyProfile = () => {
                                     d="M274.6,25.623a32.006,32.006,0,0,0-37.2,0L16,183.766V496H496V183.766ZM464,402.693,339.97,322.96,464,226.492ZM256,51.662,454.429,193.4,311.434,304.615,256,268.979l-55.434,35.636L57.571,193.4ZM48,226.492,172.03,322.96,48,402.693ZM464,464H48V440.735L256,307.021,464,440.735Z"></path>
                             </svg>
                             <span className="text-gray-600">
-                                {data?.data[0].email}
+                                {data?.data[0]?.email}
                             </span>
                         </span>
                     </div>

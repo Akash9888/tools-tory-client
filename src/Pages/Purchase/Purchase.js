@@ -10,7 +10,7 @@ const Purchase = () => {
     const [user] = useAuthState(auth);
 
     const { isLoading, error, data, isFetching } = useFetch(
-        `http://localhost:5000/api/fetch-single-tool/${params._id}`
+        `https://aqueous-anchorage-06068.herokuapp.com/api/tool/fetch-single-tool/${params._id}`
     );
 
     if (isLoading) return "Loading...";

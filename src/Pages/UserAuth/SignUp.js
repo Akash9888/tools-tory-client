@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
@@ -6,8 +6,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import auth from "../../firebaseConfig";
 import "react-toastify/dist/ReactToastify.css";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { toast, ToastContainer } from "react-toastify";
-import { sendEmailVerification } from "firebase/auth";
+import axios from "axios";
+import Loader from "../../Components/Loader";
 let schema = yup.object().shape({
     name: yup.string().required(),
     email: yup.string().email().required(),
@@ -20,6 +20,8 @@ const SignUp = () => {
             sendEmailVerification: true,
         });
 
+    const [userEmail, setEmail] = useState("");
+    const [userName, setUserName] = useState("");
     const {
         register,
         handleSubmit,
@@ -29,14 +31,33 @@ const SignUp = () => {
     });
     const navigate = useNavigate();
 
+    let userData = {};
+    const createUser = async () => {
+        console.log(userData);
+        const { data } = await axios.post(
+            `https://aqueous-anchorage-06068.herokuapp.com/api/user/create-user`,
+            {
+                name: userName,
+                email: userEmail,
+                role: "user",
+            }
+        );
+        navigate("/sign-in");
+    };
     const onSubmit = (data) => {
+        setUserName(data.name);
+        setEmail(data.email);
         createUserWithEmailAndPassword(data.email, data.password);
     };
+
     if (loading) {
-        return <p>Loading...</p>;
+        return <Loader />;
     }
     if (user) {
-        navigate("/sign-in");
+        console.log(user);
+        // navigate("/sign-in");
+        // savePostData(userData);
+        createUser();
     }
     return (
         <>

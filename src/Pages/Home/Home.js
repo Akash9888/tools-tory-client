@@ -3,15 +3,20 @@ import BusinessSummary from "./BusinessSummary";
 import Contact from "./Contact";
 import HomeCarousel from "./HomeCarousel";
 import HomeToolCards from "./HomeToolCards";
-import UserReview from "./UserReview";
+
+import UserReview2 from "./UserReview2";
 
 const Home = () => {
     return (
         <div>
             <HomeCarousel />
-            <BusinessSummary />
-            <UserReview />
-            <HomeToolCards />
+            <div className="container w-full md:max-w-[1340px] mx-auto p-6">
+                <HomeToolCards />
+                <BusinessSummary />
+
+                <UserReview2 />
+            </div>
+
             <Contact />
         </div>
     );

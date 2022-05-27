@@ -1,13 +1,27 @@
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Link } from "react-router-dom";
+import auth from "../firebaseConfig";
 
 const Footer = () => {
+    const [user, loading, error] = useAuthState(auth);
     return (
         <footer class="footer footer-center p-10 bg-base-200 text-base-content rounded">
             <div class="grid grid-flow-col gap-4">
-                <a class="link link-hover">About us</a>
-                <a class="link link-hover">Contact</a>
-                <a class="link link-hover">Jobs</a>
-                <a class="link link-hover">Press kit</a>
+                <Link to="/" class="link link-hover">
+                    Home
+                </Link>
+                {user && (
+                    <Link to="/dashboard" class="link link-hover">
+                        Dashboard
+                    </Link>
+                )}
+                <Link to="/my-portfolio" class="link link-hover">
+                    My portfolio
+                </Link>
+                <Link to="/blog" class="link link-hover">
+                    Blog
+                </Link>
             </div>
             <div>
                 <div class="grid grid-flow-col gap-4">
@@ -45,7 +59,8 @@ const Footer = () => {
             </div>
             <div>
                 <p>
-                    Copyright © 2022 - All right reserved by ACME Industries Ltd
+                    Copyright © 2022 - All right reserved by Tools Tory
+                    Industries Ltd
                 </p>
             </div>
         </footer>

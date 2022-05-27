@@ -12,11 +12,21 @@ const CheckOut = ({ setTransactionId, id, totalPrice }) => {
     const params = useParams();
 
     useEffect(() => {
-        fetch("http://localhost:5000/create-payment-intent", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ price: totalPrice }),
-        })
+        fetch(
+            "https://aqueous-anchorage-06068.herokuapp.com/api/payment/create-payment-intent",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ price: totalPrice }),
+            },
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem(
+                        "accessToken"
+                    )}`,
+                },
+            }
+        )
             .then((res) => res.json())
             .then((data) => setClientSecret(data.clientSecret));
     }, []);

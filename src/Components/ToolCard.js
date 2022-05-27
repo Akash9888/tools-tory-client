@@ -5,21 +5,18 @@ const ToolCard = ({ data }) => {
     const { name, description, min, quantity, price, photo, _id } = data;
     const navigate = useNavigate();
     return (
-        <div className="max-w-md p-6 rounded-md shadow-md bg-gray-50 text-gray-900">
+        <div className="max-w-md p-6 rounded-md bg-gray-200  drop-shadow-xl text-gray-900">
             <img
                 src={photo}
                 alt=""
                 className="object-cover object-center w-full rounded-md h-40 bg-gray-500"
             />
             <div className="mt-6 mb-2">
-                <span className="block text-xs font-medium tracking-widest uppercase text-pink-600">
-                    Quisque
-                </span>
                 <h2 className="text-xl font-semibold tracking-wide">{name}</h2>
             </div>
             <p className="text-gray-800">{description}</p>
             <div className="mt-2 mb-5">
-                <section className=" bg-gray-100 text-gray-800">
+                <section className="  text-gray-800">
                     <div className="flex justify-between">
                         <div className="flex flex-col justify-start text-center ">
                             <p className="text-xl font-bold leading-none ">

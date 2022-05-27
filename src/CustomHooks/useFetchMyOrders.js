@@ -4,10 +4,16 @@ const useFetchMyOrders = (url) => {
     const { isLoading, error, data, isFetching } = useQuery(
         "fetch-my-orders",
         () => {
-            return axios.get(url);
+            return axios.get(url, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem(
+                        "accessToken"
+                    )}`,
+                },
+            });
         },
         {
-            refetchInterval: 3000,
+            refetchInterval: 1000,
             // refetchOnWindowFocus: true,
         }
     );

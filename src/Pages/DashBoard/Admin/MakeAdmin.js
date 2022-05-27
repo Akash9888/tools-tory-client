@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import Loader from "../../../Components/Loader";
 import useUpdate from "../../../CustomHooks/useUpdate";
+import { useAlert } from "react-alert";
 
 let schema = yup.object().shape({
     email: yup.string().email().required(),
@@ -20,10 +21,14 @@ const MakeAdmin = () => {
 
     const makeAdmin = (data) => {
         console.log(data);
-        saveupdatedData(`http://localhost:5000/api/make-admin/${data.email}`, {
-            role: "admin",
-        });
+        saveupdatedData(
+            `https://aqueous-anchorage-06068.herokuapp.com/api/user/make-admin/${data.email}`,
+            {
+                role: "admin",
+            }
+        );
     };
+    const alert = useAlert();
     if (loading) {
         return <Loader />;
     }
@@ -31,6 +36,7 @@ const MakeAdmin = () => {
         console.log(error.message);
     }
     if (data) {
+        alert.success("Admin");
         console.log(data);
     }
     return (
@@ -64,7 +70,7 @@ const MakeAdmin = () => {
                         </form>
                     </div>
                 </div>
-            </div>
+            </div>{" "}
         </div>
     );
 };

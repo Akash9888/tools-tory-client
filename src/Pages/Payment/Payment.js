@@ -8,7 +8,7 @@ import CheckOut from "./CheckOut";
 const Payment = () => {
     const params = useParams();
     const { isLoading, error, data, isFetching } = useFetch(
-        `http://localhost:5000/api/fetch-single-order/${params._id}`
+        `https://aqueous-anchorage-06068.herokuapp.com/api/order/fetch-single-order/${params._id}`
     );
     const {
         saveupdatedData,
@@ -31,7 +31,7 @@ const Payment = () => {
 
     const backOrderPage = async () => {
         saveupdatedData(
-            `http://localhost:5000/api/update-single-order/${params._id}`,
+            `https://aqueous-anchorage-06068.herokuapp.com/api/order/update-single-order/${params._id}`,
             { status: "pending", transaction: transactionId }
         );
     };

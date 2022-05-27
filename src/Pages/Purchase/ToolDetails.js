@@ -16,7 +16,10 @@ const ToolDetails = ({ data }) => {
         error: postError,
         data: postData,
         savePostData,
-    } = usePost(`http://localhost:5000/api/create-order`);
+    } = usePost(
+        `https://aqueous-anchorage-06068.herokuapp.com/api/order/create-order`
+    );
+
     const schema = yup.object().shape({
         address: yup.string().required(),
         name: yup.string().required(),

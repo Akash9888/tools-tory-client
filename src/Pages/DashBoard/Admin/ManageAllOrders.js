@@ -10,10 +10,20 @@ const ManageAllOrders = () => {
     const { isLoading, error, data, isFetching } = useQuery(
         "fetch-manage-orders",
         () => {
-            return axios.get(`http://localhost:5000/api/fetch-orders-manage`);
+            return axios.get(
+                `https://aqueous-anchorage-06068.herokuapp.com/api/order/fetch-orders-manage`,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem(
+                            "accessToken"
+                        )}`,
+                    },
+                }
+            );
         },
+
         {
-            refetchInterval: 3000,
+            refetchInterval: 1000,
             // refetchOnWindowFocus: true,
         }
     );
@@ -43,12 +53,8 @@ const ManageAllOrders = () => {
             confirmButtonText: "Yes, Change it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                // productsDeleteRequest(
-                //     `http://localhost:5000/api/delete-product/${_id}`
-                // );
-
                 saveupdatedData(
-                    `http://localhost:5000/api/update-single-order/${_id}`,
+                    `https://aqueous-anchorage-06068.herokuapp.com/api/order/update-single-order/${_id}`,
                     {
                         status: "shipped",
                     }

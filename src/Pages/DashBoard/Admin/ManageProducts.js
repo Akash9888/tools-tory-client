@@ -10,7 +10,16 @@ const ManageProducts = () => {
     const { isLoading, error, data, isFetching } = useQuery(
         "fetch-product",
         () => {
-            return axios.get(`http://localhost:5000/api/fetch-tools-delete`);
+            return axios.get(
+                `https://aqueous-anchorage-06068.herokuapp.com/api/tool/fetch-tools-delete`,
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem(
+                            "accessToken"
+                        )}`,
+                    },
+                }
+            );
         },
         {
             refetchInterval: 3000,
@@ -44,7 +53,7 @@ const ManageProducts = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 productsDeleteRequest(
-                    `http://localhost:5000/api/delete-product/${_id}`
+                    `https://aqueous-anchorage-06068.herokuapp.com/api/tool/delete-product/${_id}`
                 );
 
                 Swal.fire("Deleted!", "Product has been deleted.", "success");

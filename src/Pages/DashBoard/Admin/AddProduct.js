@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import Loader from "../../../Components/Loader";
 import usePost from "../../../CustomHooks/usePost";
+import { useAlert } from "react-alert";
 let schema = yup.object().shape({
     name: yup.string().required(),
     description: yup.string().required(),
@@ -13,19 +14,27 @@ let schema = yup.object().shape({
     photo: yup.string().url().required(),
 });
 const AddProduct = () => {
-    const { savePostData, loading, error, data } = usePost(
-        `http://localhost:5000/api/create-tool`
+    const {
+        savePostData,
+        loading,
+        error,
+        data: createData,
+    } = usePost(
+        `https://aqueous-anchorage-06068.herokuapp.com/api/tool/create-tool`
     );
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm({
         resolver: yupResolver(schema),
     });
-    const storeProduct = (data) => {
+    const alert = useAlert();
+    const storeProduct = (data, e) => {
         console.log(data);
         savePostData(data);
+        e.target.reset();
     };
     if (error) {
         console.log(error.message);
@@ -33,19 +42,25 @@ const AddProduct = () => {
     if (loading) {
         return <Loader />;
     }
+    if (createData) {
+        alert.success("New tool added successfully");
+    }
     return (
         <div className="container w-full md:w-[50%] mx-auto my-5 p-2">
-            <section className="p-6 text-gray-800">
+            <section className="p-2 text-gray-800">
                 <form
                     onSubmit={handleSubmit(storeProduct)}
                     novalidate=""
                     className="container w-full max-w-xl p-8 mx-auto space-y-6 rounded-md shadow bg-gray-300 ng-untouched ng-pristine ng-valid">
                     <h2 className="w-full text-3xl text-center font-bold leading-tight">
-                        Add Product
+                        Add Tool
                     </h2>
                     <div>
-                        <label for="name" className="block  ml-1">
-                            Product Name
+                        <label
+                            for="name"
+                            className="block  
+">
+                            Tool Name
                         </label>
                         <input
                             name="name"
@@ -57,8 +72,11 @@ const AddProduct = () => {
                         <p className="text-red-700">{errors.name?.message}</p>
                     </div>
                     <div>
-                        <label for="name" className="block  ml-1">
-                            Product description
+                        <label
+                            for="name"
+                            className="block  
+">
+                            Tool Description
                         </label>
                         <input
                             name="description"
@@ -72,8 +90,11 @@ const AddProduct = () => {
                         </p>
                     </div>
                     <div>
-                        <label for="name" className="block  ml-1">
-                            Product Image
+                        <label
+                            for="name"
+                            className="block  
+">
+                            Tool Image
                         </label>
                         <input
                             name="photo"
@@ -85,8 +106,11 @@ const AddProduct = () => {
                         <p className="text-red-700">{errors.photo?.message}</p>
                     </div>
                     <div>
-                        <label for="name" className="block  ml-1">
-                            Product Quantity
+                        <label
+                            for="name"
+                            className="block  
+">
+                            Tool Quantity
                         </label>
                         <input
                             name="quantity"
@@ -100,7 +124,10 @@ const AddProduct = () => {
                         </p>
                     </div>
                     <div>
-                        <label for="name" className="block  ml-1">
+                        <label
+                            for="name"
+                            className="block  
+">
                             Unit Price
                         </label>
                         <input
@@ -115,7 +142,10 @@ const AddProduct = () => {
                         </p>
                     </div>
                     <div>
-                        <label for="name" className="block  ml-1">
+                        <label
+                            for="name"
+                            className="block  
+">
                             Minimum Order
                         </label>
                         <input
@@ -134,7 +164,7 @@ const AddProduct = () => {
                         <button
                             type="submit"
                             className="w-full px-4 py-2 font-bold rounded shadow focus:outline-none focus:ring hover:ring focus:ring-opacity-50 bg-pink-600 focus:ring-pink-600 hover:ring-pink-600 text-gray-50">
-                            Add Product
+                            Add Tool
                         </button>
                     </div>
                 </form>

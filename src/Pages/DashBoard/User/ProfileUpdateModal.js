@@ -27,9 +27,10 @@ const ProfileUpdateModal = () => {
     const profileData = (data) => {
         console.log(data);
         saveupdatedData(
-            `http://localhost:5000/api/update-user/${user?.email}`,
+            `https://aqueous-anchorage-06068.herokuapp.com/api/user/update-user/${user?.email}`,
             data
         );
+        Swal.fire("Profile Updated");
     };
     if (loading || upLoading) {
         return <Loader />;
@@ -37,9 +38,7 @@ const ProfileUpdateModal = () => {
     if (error) {
         console.log(error.message);
     }
-    if (data) {
-        Swal.fire("Profile Updated");
-    }
+
     return (
         <div>
             <input

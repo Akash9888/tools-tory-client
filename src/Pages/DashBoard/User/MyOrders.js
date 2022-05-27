@@ -15,7 +15,7 @@ const MyOrders = () => {
         data,
         isFetching,
     } = useFetchMyOrders(
-        `http://localhost:5000/api/fetch-orders/${user?.email}`
+        `https://aqueous-anchorage-06068.herokuapp.com/api/order/fetch-orders/${user?.email}`
     );
     const {
         orderDeleteRequest,
@@ -53,7 +53,7 @@ const MyOrders = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 orderDeleteRequest(
-                    `http://localhost:5000/api/delete-order/${_id}`
+                    `https://aqueous-anchorage-06068.herokuapp.com/api/order/delete-order/${_id}`
                 );
 
                 Swal.fire("Deleted!", "Order has been deleted.", "success");

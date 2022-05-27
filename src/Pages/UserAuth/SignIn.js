@@ -9,6 +9,8 @@ import {
     useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
 import GoogleLogin from "./GoogleLogin";
+import Loader from "../../Components/Loader";
+import axios from "axios";
 let schema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().min(6).max(15).required(),
@@ -17,6 +19,12 @@ let schema = yup.object().shape({
 const SignIn = () => {
     const [signInWithEmailAndPassword, user, loading, error] =
         useSignInWithEmailAndPassword(auth);
+    // const {
+    //     getToken,
+    //     data,
+    //     error: tokenError,
+    //     loading: tokenLoading,
+    // } = useToken();
 
     const {
         register,
@@ -25,9 +33,20 @@ const SignIn = () => {
     } = useForm({
         resolver: yupResolver(schema),
     });
+    const getToken = async (email) => {
+        const { data } = await axios.post(
+            `https://aqueous-anchorage-06068.herokuapp.com/api/user/create-token`,
+            { email }
+        );
+
+        localStorage.setItem("accessToken", data);
+
+        // alert.success("User login successfully");
+    };
 
     const navigate = useNavigate();
     const location = useLocation();
+
     let from = location.state?.from?.pathname || "/";
     const onSubmit = (data) => {
         console.log(data);
@@ -35,10 +54,13 @@ const SignIn = () => {
     };
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <Loader />;
     }
     if (user) {
+        getToken(user.user.email);
+        console.log(user);
         navigate(from, { replace: true });
+        // navigate(from, { replace: true });
     }
     return (
         <div className="container w-full md:w-[30%] mx-auto my-5 p-2">

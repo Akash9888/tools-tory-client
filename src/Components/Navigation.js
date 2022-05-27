@@ -3,14 +3,35 @@ import { Link } from "react-router-dom";
 import auth from "../firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
+import Loader from "../Components/Loader";
+import useFetchUser from "../CustomHooks/useFetchUser";
 const Navigation = () => {
     const [user, loading, error] = useAuthState(auth);
+    const {
+        isLoading,
+        error: fetchError,
+        data,
+        isFetching,
+    } = useFetchUser(
+        `https://aqueous-anchorage-06068.herokuapp.com/api/user/fetch-user/${user?.email}`
+    );
 
     const logout = () => {
         signOut(auth);
+
+        localStorage.removeItem("accessToken");
     };
-    if (loading) {
-        <p>loading......</p>;
+    if (isLoading || loading) {
+        return <Loader />;
+    }
+    if (error) {
+        console.log(error.message);
+    }
+    if (fetchError) {
+        console.log(fetchError.message);
+    }
+    if (data) {
+        console.log(data.data[0]);
     }
     console.log(user);
     return (
@@ -38,15 +59,7 @@ const Navigation = () => {
                         <li>
                             <Link to="/">Home</Link>
                         </li>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/my-portfolio">My Portfolio</Link>
-                        </li>
+
                         {user && (
                             <li>
                                 <Link to="/dashboard">Dashboard</Link>
@@ -54,6 +67,9 @@ const Navigation = () => {
                         )}
                         <li>
                             <Link to="/my-portfolio">My Portfolio</Link>
+                        </li>
+                        <li>
+                            <Link to="/blog">Blog</Link>
                         </li>
                     </ul>
                 </div>
@@ -64,12 +80,7 @@ const Navigation = () => {
                     <li>
                         <Link to="/">Home</Link>
                     </li>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
+
                     {user && (
                         <li>
                             <Link to="/dashboard">Dashboard</Link>
@@ -78,12 +89,24 @@ const Navigation = () => {
                     <li>
                         <Link to="/my-portfolio">My Portfolio</Link>
                     </li>
+                    <li>
+                        <Link to="/blog">Blog</Link>
+                    </li>
                 </ul>
             </div>
             <div class="navbar-end">
                 {user ? (
                     <>
-                        <p>{user.displayName}</p>
+                        {!user?.displayName ? (
+                            <p className="text-amber-700 font-semibold">
+                                {data?.data[0]?.name}
+                            </p>
+                        ) : (
+                            <p className="text-amber-700 font-semibold">
+                                {user.displayName}
+                            </p>
+                        )}
+
                         <button class="btn btn-link" onClick={logout}>
                             Sign Out
                         </button>

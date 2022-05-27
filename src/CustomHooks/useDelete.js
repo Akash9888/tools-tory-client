@@ -7,7 +7,13 @@ const useDelete = () => {
     const [error, setError] = useState(false);
     const orderDeleteRequest = (url) => {
         axios
-            .delete(url)
+            .delete(url, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem(
+                        "accessToken"
+                    )}`,
+                },
+            })
             .then((response) => {
                 setData(response.data);
 

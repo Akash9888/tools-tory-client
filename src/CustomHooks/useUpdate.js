@@ -10,7 +10,13 @@ const useUpdate = () => {
         console.log(updatedData);
         setLoading(true);
         axios
-            .put(url, updatedData)
+            .put(url, updatedData, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem(
+                        "accessToken"
+                    )}`,
+                },
+            })
 
             .then((response) => {
                 setData(response.data);

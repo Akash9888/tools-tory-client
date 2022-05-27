@@ -1,28 +1,39 @@
+import axios from "axios";
 import React from "react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import Loader from "../../Components/Loader";
 import auth from "../../firebaseConfig";
 
 const GoogleLogin = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    let from = location.state?.from?.pathname || "/";
+    const getToken = async (email) => {
+        const { data } = await axios.post(
+            `https://aqueous-anchorage-06068.herokuapp.com/api/user/create-token`,
+            { email }
+        );
+
+        localStorage.setItem("accessToken", data);
+
+        // alert.success("User login successfully");
+    };
     if (error) {
         return (
             <div>
                 <p>Error: {error.message}</p>
             </div>
         );
-        // setGError(error);
-        // setGLoading(true);
-        // console.log(error.message);
     }
     if (loading) {
-        // setGLoading(true);
-        <p>loading..</p>;
+        return <Loader />;
     }
     if (user) {
-        console.log(user);
-        navigate("/");
+        getToken(user.user.email);
+        navigate(from, { replace: true });
     }
     return (
         <div className="flex justify-center space-x-4 text-white">

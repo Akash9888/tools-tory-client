@@ -20,6 +20,8 @@ import Purchase from "./Pages/Purchase/Purchase";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Payment from "../src/Pages/Payment/Payment";
 import CheckOut from "./Pages/Payment/CheckOut";
+import RequiredAdmin from "./Pages/UserAuth/RequiredAdmin";
+import Blog from "./Pages/Blog/Blog";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +37,7 @@ function App() {
                         <Route path="sign-up" element={<SignUp />} />
                         <Route path="reset-pass" element={<ResetPass />} />
                         <Route path="my-portfolio" element={<MyPortfolio />} />
+                        <Route path="blog" element={<Blog />} />
                         <Route
                             path="purchase/:_id"
                             element={
@@ -78,7 +81,14 @@ function App() {
                                 path="manage-orders"
                                 element={<ManageAllOrders />}
                             />
-                            <Route path="make-admin" element={<MakeAdmin />} />
+                            <Route
+                                path="make-admin"
+                                element={
+                                    <RequiredAdmin>
+                                        <MakeAdmin />
+                                    </RequiredAdmin>
+                                }
+                            />
                             <Route
                                 path="manage-products"
                                 element={<ManageProducts />}
