@@ -2,6 +2,7 @@ import React from "react";
 import BusinessSummary from "./BusinessSummary";
 import Contact from "./Contact";
 import HomeCarousel from "./HomeCarousel";
+import HomeChart from "./HomeChart";
 import HomeToolCards from "./HomeToolCards";
 
 import UserReview2 from "./UserReview2";
@@ -15,6 +16,7 @@ const Home = () => {
                 <BusinessSummary />
 
                 <UserReview2 />
+                <HomeChart />
             </div>
 
             <Contact />
