@@ -5,6 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
 import Loader from "../Components/Loader";
 import useFetchUser from "../CustomHooks/useFetchUser";
+import { useAlert } from "react-alert";
 const Navigation = () => {
     const [user, loading, error] = useAuthState(auth);
     const {
@@ -18,22 +19,20 @@ const Navigation = () => {
 
     const logout = () => {
         signOut(auth);
-
+        alert.info("User Logout");
         localStorage.removeItem("accessToken");
     };
+    const alert = useAlert();
     if (isLoading || loading) {
         return <Loader />;
     }
     if (error) {
-        console.log(error.message);
+        alert.error(error.message);
     }
     if (fetchError) {
-        console.log(fetchError.message);
+        alert.error(fetchError.message);
     }
-    if (data) {
-        console.log(data.data[0]);
-    }
-    console.log(user);
+
     return (
         <div class="navbar ">
             <div class="navbar-start">

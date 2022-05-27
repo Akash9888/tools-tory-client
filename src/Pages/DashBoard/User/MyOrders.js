@@ -7,6 +7,7 @@ import useDelete from "../../../CustomHooks/useDelete";
 import Swal from "sweetalert2";
 import useFetchMyOrders from "../../../CustomHooks/useFetchMyOrders";
 import { useNavigate } from "react-router-dom";
+import { useAlert } from "react-alert";
 const MyOrders = () => {
     const [user, loading, error] = useAuthState(auth);
     const {
@@ -24,17 +25,19 @@ const MyOrders = () => {
         data: deleteData,
     } = useDelete();
     const navigate = useNavigate();
+    const alert = useAlert();
     if (loading || isLoading || deleteLoading) {
         return <p>Loading..</p>;
     }
     if (error) {
-        console.log(error.message);
+        alert.error(error.message);
     }
     if (isError) {
-        console.log(isError.message);
+        alert.error(isError.message);
     }
     if (deleteError) {
-        console.log(deleteError.message);
+        // console.log(deleteError.message);
+        alert.error(deleteError.message);
     }
 
     const makePayment = (_id) => {
@@ -77,7 +80,7 @@ const MyOrders = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data?.data.map((data, index) => {
+                    {data?.data?.map((data, index) => {
                         return (
                             <UserTableBody
                                 key={data._id}

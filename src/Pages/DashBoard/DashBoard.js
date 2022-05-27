@@ -5,6 +5,7 @@ import auth from "../../firebaseConfig";
 import Loader from "../../Components/Loader";
 
 import useAdmin from "../../CustomHooks/useAdmin";
+import { useAlert } from "react-alert";
 
 const DashBoard = () => {
     const [user, loading, error] = useAuthState(auth);
@@ -16,25 +17,24 @@ const DashBoard = () => {
     } = useAdmin(
         `https://aqueous-anchorage-06068.herokuapp.com/api/user/fetch-admin/${user?.email}`
     );
+    const alert = useAlert();
 
     if (loading || isLoading) {
         return <Loader />;
     }
     if (error) {
-        console.log(error.message);
+        alert.error(error.message);
     }
     if (fetchError) {
-        console.log(fetchError.message);
+        alert.error(fetchError.message);
     }
-    if (user) {
-        console.log(data?.data[0].role);
-    }
+
     return (
         <div class="drawer drawer-mobile">
             <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
             <div class="drawer-content ">
                 {/* <!-- Page content here --> */}
-                <h1>this is dashboard</h1>
+                {/* <h1 className="text-center text-3xl my-5">My Dashboard</h1> */}
                 <Outlet />
                 <label
                     for="my-drawer-2"
@@ -44,7 +44,7 @@ const DashBoard = () => {
             </div>
             <div class="drawer-side">
                 <label for="my-drawer-2" class="drawer-overlay"></label>
-                <ul class="menu p-4 overflow-y-auto w-40 bg-red-500 text-base-content">
+                <ul class="menu p-4 overflow-y-auto w-60 bg-gray-100 text-base-content">
                     {/* <!-- Sidebar content here --> */}
                     <li>
                         <Link to="/dashboard">My Profile</Link>

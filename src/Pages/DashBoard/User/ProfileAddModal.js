@@ -14,7 +14,8 @@ let schema = yup.object().shape({
 
     linkedin: yup.string().url().required(),
 });
-const ProfileUpdateModal = () => {
+
+const ProfileAddModal = () => {
     const [user, loading, error] = useAuthState(auth);
     const { saveupdatedData, loading: upLoading, data } = useUpdate();
     const {
@@ -38,18 +39,17 @@ const ProfileUpdateModal = () => {
     if (error) {
         console.log(error.message);
     }
-
     return (
         <div>
             <input
                 type="checkbox"
-                id="proile-update-modal"
+                id="profile-add-modal"
                 class="modal-toggle"
             />
             <div class="modal">
                 <div class="modal-box relative">
                     <label
-                        for="proile-update-modal"
+                        for="profile-add-modal"
                         class="btn btn-sm btn-circle absolute right-2 top-2">
                         ✕
                     </label>
@@ -59,7 +59,7 @@ const ProfileUpdateModal = () => {
                             novalidate=""
                             className="container w-full max-w-xl p-8 mx-auto space-y-6 rounded-md shadow bg-gray-300 ng-untouched ng-pristine ng-valid">
                             <h2 className="w-full text-3xl text-center font-bold leading-tight">
-                                Update Profile
+                                Add Profile Info
                             </h2>
                             <div>
                                 <label for="name" className="block  ml-1">
@@ -126,7 +126,7 @@ const ProfileUpdateModal = () => {
                                 <button
                                     type="submit"
                                     className="w-full text-center border border-sky-500 rounded-full py-2 px-4 text-pink-600 font-semibold hover:bg-stone-200 ">
-                                    Update Profile
+                                    Add Info
                                 </button>
                             </div>
                         </form>
@@ -137,4 +137,4 @@ const ProfileUpdateModal = () => {
     );
 };
 
-export default ProfileUpdateModal;
+export default ProfileAddModal;

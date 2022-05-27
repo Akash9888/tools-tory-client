@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import axios from "axios";
 import Loader from "../../Components/Loader";
+import { useAlert } from "react-alert";
 let schema = yup.object().shape({
     name: yup.string().required(),
     email: yup.string().email().required(),
@@ -30,6 +31,7 @@ const SignUp = () => {
         resolver: yupResolver(schema),
     });
     const navigate = useNavigate();
+    const alert = useAlert();
 
     let userData = {};
     const createUser = async () => {
@@ -42,6 +44,7 @@ const SignUp = () => {
                 role: "user",
             }
         );
+        alert.success("SignUp Successfully");
         navigate("/sign-in");
     };
     const onSubmit = (data) => {
@@ -53,8 +56,10 @@ const SignUp = () => {
     if (loading) {
         return <Loader />;
     }
+    if (error) {
+        alert.error(error.message);
+    }
     if (user) {
-        console.log(user);
         // navigate("/sign-in");
         // savePostData(userData);
         createUser();

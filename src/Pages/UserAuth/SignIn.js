@@ -11,6 +11,7 @@ import {
 import GoogleLogin from "./GoogleLogin";
 import Loader from "../../Components/Loader";
 import axios from "axios";
+import { useAlert } from "react-alert";
 let schema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().min(6).max(15).required(),
@@ -19,12 +20,6 @@ let schema = yup.object().shape({
 const SignIn = () => {
     const [signInWithEmailAndPassword, user, loading, error] =
         useSignInWithEmailAndPassword(auth);
-    // const {
-    //     getToken,
-    //     data,
-    //     error: tokenError,
-    //     loading: tokenLoading,
-    // } = useToken();
 
     const {
         register,
@@ -46,7 +41,7 @@ const SignIn = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-
+    const alert = useAlert();
     let from = location.state?.from?.pathname || "/";
     const onSubmit = (data) => {
         console.log(data);
@@ -56,9 +51,12 @@ const SignIn = () => {
     if (loading) {
         return <Loader />;
     }
+    if (error) {
+        alert.error(error.message);
+    }
     if (user) {
         getToken(user.user.email);
-        console.log(user);
+        alert.success("Login Successfully");
         navigate(from, { replace: true });
         // navigate(from, { replace: true });
     }
@@ -111,9 +109,9 @@ const SignIn = () => {
                         Sign in
                     </button>
                 </form>
-                <div className="flex items-center pt-4 space-x-1">
+                <div className=" pt-4 ">
                     <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
-                    <p className="px-3 text-sm text-white">
+                    <p className="px-3 text-sm text-white text-center">
                         Login with social account
                     </p>
                     <GoogleLogin />

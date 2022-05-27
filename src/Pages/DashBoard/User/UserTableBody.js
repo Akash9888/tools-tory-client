@@ -1,10 +1,8 @@
 import React from "react";
 
 const UserTableBody = ({ data, index, deleteOrder, makePayment }) => {
-    console.log(data);
     const fieldValues = Object.values(data);
     fieldValues.pop();
-    console.log(fieldValues);
 
     return (
         <tr>

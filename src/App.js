@@ -70,6 +70,8 @@ function App() {
                                     <DashBoard />
                                 </RequiredAuth>
                             }>
+                            {/* /payment/6290e5e4f88762516cb50276/dashboard/my-orders */}
+
                             <Route index element={<MyProfile />} />
                             <Route path="my-orders" element={<MyOrders />} />
                             <Route path="add-review" element={<AddReview />} />

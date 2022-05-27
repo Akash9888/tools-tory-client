@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import usePost from "../../CustomHooks/usePost";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import Loader from "../../Components/Loader";
+import { useAlert } from "react-alert";
 const ToolDetails = ({ data }) => {
     console.log(data);
     const { name, description, min, _id, quantity, photo, price } = data;
@@ -54,28 +56,29 @@ const ToolDetails = ({ data }) => {
         purchaseData.photo = photo;
         purchaseData.phone = data.phone;
         purchaseData.name = data.name;
-        purchaseData.email = data.email;
+        purchaseData.email = user?.email;
         purchaseData.status = "unpaid";
         purchaseData.transaction = "none";
 
         savePostData(purchaseData);
-    };
-    if (loading || postLoading) {
-        return <p>Loading...</p>;
-    }
-    if (errors) {
-        console.log(errors);
-    }
-    if (postError) {
-        console.log(postError.message);
-    }
-    if (postData) {
         Swal.fire("Purchase data store successful");
+    };
+    const alert = useAlert();
+    if (loading || postLoading) {
+        return <Loader />;
+    }
+    // if (errors) {
+    //     alert.error(errors.message);
+    // }
+    // if (postError) {
+    //     alert.error(postError.message);
+    // }
+    if (postData) {
         navigate("/dashboard/my-orders");
     }
     return (
         <div className="container w-full md:w-[60%] mx-auto my-5 p-2">
-            <div className=" p-6 rounded-md shadow-md bg-gray-50 text-gray-900">
+            <div className=" p-6 rounded-md shadow-md bg-gray-200 text-gray-900">
                 <div className="grid gap-6 grid-cols-1 md:grid-cols-2 items-center">
                     <img
                         src={photo}
@@ -128,7 +131,7 @@ const ToolDetails = ({ data }) => {
                                 <input
                                     name="orderQuantity"
                                     type="number"
-                                    value={min}
+                                    // value={~}
                                     // readOnly={false}
                                     {...register("orderQuantity")}
                                     className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-pink-400"
@@ -191,8 +194,9 @@ const ToolDetails = ({ data }) => {
 
                             <button
                                 type="submit"
-                                // disabled={errors ? "true" : ""}
-                                className="self-center px-8 py-3 text-lg rounded focus:ring hover:ring focus:ring-opacity-75 bg-pink-600 text-gray-50 focus:ring-pink-600 hover:ring-pink-600">
+                                disabled={errors?.orderQuantity}
+                                // className={errors?.orderQuantity?:}
+                                className="text-center border border-sky-500 rounded-full py-2 px-4 text-pink-600 font-semibold hover:bg-stone-200 ">
                                 Purchase
                             </button>
                         </form>

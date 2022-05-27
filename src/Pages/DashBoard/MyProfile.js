@@ -6,6 +6,7 @@ import auth from "../../firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ProfileUpdateModal from "./User/ProfileUpdateModal";
 import useFetchUser from "../../CustomHooks/useFetchUser";
+import ProfileAddModal from "./User/ProfileAddModal";
 const MyProfile = () => {
     const [user, loading, error] = useAuthState(auth);
     const {
@@ -76,10 +77,18 @@ const MyProfile = () => {
             </div>
 
             <ProfileUpdateModal />
-            <div className="text-center">
-                <label for="proile-update-modal" className="btn">
-                    Update Profile
-                </label>
+            <ProfileAddModal />
+            <div className="flex justify-center space-x-3 mt-5 text-center ">
+                <div className="text-center">
+                    <label for="proile-update-modal" className="btn">
+                        Update Profile
+                    </label>
+                </div>
+                <div className="text-center">
+                    <label for="profile-add-modal" className="btn">
+                        Add Profile Info
+                    </label>
+                </div>
             </div>
         </div>
     );

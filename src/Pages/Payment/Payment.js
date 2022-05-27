@@ -25,15 +25,16 @@ const Payment = () => {
     if (error) {
         console.log(error.message);
     }
-    if (UpData) {
-        navigate("dashboard/my-orders");
-    }
+    // if (UpData) {
+    //     navigate("dashboard/my-orders");
+    // }
 
     const backOrderPage = async () => {
         saveupdatedData(
             `https://aqueous-anchorage-06068.herokuapp.com/api/order/update-single-order/${params._id}`,
             { status: "pending", transaction: transactionId }
         );
+        navigate("/dashboard/my-orders");
     };
     return (
         <div className="container w-full md:w-[50%] mx-auto my-5 p-2">
