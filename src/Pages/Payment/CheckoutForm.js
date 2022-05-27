@@ -63,7 +63,8 @@ export default function CheckoutForm({ setTransactionId, id }) {
         const { error, paymentIntent } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: `http://localhost:3000/payment/${id}`,
+                // return_url: `http://localhost:3000/payment/${id}`,
+                return_url: `https://tools-tory.web.app/payment//${id}`,
             },
         });
 
